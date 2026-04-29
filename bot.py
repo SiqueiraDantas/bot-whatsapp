@@ -2,6 +2,8 @@ import requests
 import schedule
 import time
 from datetime import datetime
+from http.server import HTTPServer, BaseHTTPRequestHandler
+import threading
 import os
 
 # Configurações da Evolution API
@@ -80,19 +82,37 @@ Bateria 4
 Sax
 Trompete 2"""
     else:
-        return  # Sexta, sábado e domingo não envia
+        return
     
     enviar_mensagem(texto)
 
 def aula_18h():
     dia = datetime.now().weekday()
-    if dia <= 3:  # Segunda a Quinta
+    if dia <= 3:
         enviar_mensagem("Aula das 18h encerrada.")
 
 def aula_1930():
     dia = datetime.now().weekday()
-    if dia <= 3:  # Segunda a Quinta
+    if dia <= 3:
         enviar_mensagem("Aula das 19:30 encerrada.")
+
+# Servidor HTTP fake (pra Render não derrubar)
+class Handler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(200)
+        self.send_header('Content-type', 'text/plain')
+        self.end_headers()
+        self.wfile.write(b"Bot rodando!")
+    def log_message(self, format, *args):
+        return
+
+def start_server():
+    port = int(os.environ.get('PORT', 10000))
+    server = HTTPServer(('0.0.0.0', port), Handler)
+    server.serve_forever()
+
+# Inicia servidor fake numa thread separada
+threading.Thread(target=start_server, daemon=True).start()
 
 # Agendamento
 schedule.every().day.at("07:00").do(mensagem_manha)
