@@ -39,50 +39,74 @@ def mensagem_manha():
     if dia == 0:  # Segunda
         texto = """Bom dia!!!
 Uma semana abençoada e bastante produtiva a todos nós!!!
+
 Hoje teremos aula para as Turmas:
+
 18:00h
+
 Bateria 1
 Clarinete 2
 Flauta Doce 1
 Flauta Doce 2
+
+
 19:30h
+
 Flauta Transversal
 Percussão
 Trombone"""
     elif dia == 1:  # Terça
         texto = """Bom dia!!!
 Que estejamos todos na paz!!!
+
 Hoje teremos aula para as turmas de:
+
 18:00h
+
 Bateria 3
 Clarinete 1
 Trompete 1
+
+
 19:30h
+
 Bateria 4
 Sax
 Trompete 2"""
     elif dia == 2:  # Quarta
         texto = """Bom dia!!!
 Que estejamos todos na paz!!!
+
 Hoje teremos aula para as Turmas:
+
 18:00h
+
 Bateria 1
 Clarinete 2
 Flauta Doce 1
 Flauta Doce 2
+
+
 19:30h
+
 Flauta Transversal
 Percussão
 Trombone"""
     elif dia == 3:  # Quinta
         texto = """Bom dia!!!
 Que estejamos todos na paz!!!
+
 Hoje teremos aula para as turmas de:
+
 18:00h
+
 Bateria 3
 Clarinete 1
 Flauta Doce 2
+
+
 19:30h
+
 Bateria 4
 Sax
 Trompete 2"""
