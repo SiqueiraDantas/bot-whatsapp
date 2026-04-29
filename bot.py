@@ -4,45 +4,102 @@ import time
 from datetime import datetime
 import os
 
-TOKEN = os.environ.get("WA_TOKEN")
-INSTANCE = os.environ.get("WA_INSTANCE")
-NUMERO = os.environ.get("WA_NUMERO")  # ex: 5585999999999
+# Configurações da Evolution API
+API_URL = "https://evolution-api-nde1.onrender.com"
+API_KEY = "minhaChaveSecreta123"
+INSTANCE = "bot-aulas"
+GRUPO_ID = "120363421690391111@g.us"
 
 def enviar_mensagem(texto):
-    url = f"https://api.ultramsg.com/{INSTANCE}/messages/chat"
-    payload = {
-        "token": TOKEN,
-        "to": NUMERO,
-        "body": texto
+    url = f"{API_URL}/message/sendText/{INSTANCE}"
+    headers = {
+        "apikey": API_KEY,
+        "Content-Type": "application/json"
     }
-    requests.post(url, data=payload)
+    payload = {
+        "number": GRUPO_ID,
+        "text": texto
+    }
+    try:
+        response = requests.post(url, json=payload, headers=headers)
+        print(f"[{datetime.now()}] Mensagem enviada: {response.status_code}")
+    except Exception as e:
+        print(f"Erro: {e}")
 
 def mensagem_manha():
     dia = datetime.now().weekday()
-    aulas_por_dia = {
-        0: "• 18h — Matéria 1\n• 19:30 — Matéria 2",
-        1: "• 18h — Matéria 3\n• 19:30 — Matéria 4",
-        2: "• 18h — Matéria 5\n• 19:30 — Matéria 6",
-        3: "• 18h — Matéria 7\n• 19:30 — Matéria 8",
-        4: "• 18h — Matéria 9\n• 19:30 — Matéria 10",
-        5: "Sem aulas hoje! 🎉",
-        6: "Sem aulas hoje! 🎉",
-    }
-    grade = aulas_por_dia.get(dia, "Sem aulas.")
-    texto = f"📚 *Bom dia!* Aulas de hoje:\n\n{grade}\n\nBora lá! 💪"
+    
+    if dia == 0:  # Segunda
+        texto = """Bom dia!!!
+Uma semana abençoada e bastante produtiva a todos nós!!!
+Hoje teremos aula para as Turmas:
+18:00h
+Bateria 1
+Clarinete 2
+Flauta Doce 1
+Flauta Doce 2
+19:30h
+Flauta Transversal
+Percussão
+Trombone"""
+    elif dia == 1:  # Terça
+        texto = """Bom dia!!!
+Que estejamos todos na paz!!!
+Hoje teremos aula para as turmas de:
+18:00h
+Bateria 3
+Clarinete 1
+Trompete 1
+19:30h
+Bateria 4
+Sax
+Trompete 2"""
+    elif dia == 2:  # Quarta
+        texto = """Bom dia!!!
+Que estejamos todos na paz!!!
+Hoje teremos aula para as Turmas:
+18:00h
+Bateria 1
+Clarinete 2
+Flauta Doce 1
+Flauta Doce 2
+19:30h
+Flauta Transversal
+Percussão
+Trombone"""
+    elif dia == 3:  # Quinta
+        texto = """Bom dia!!!
+Que estejamos todos na paz!!!
+Hoje teremos aula para as turmas de:
+18:00h
+Bateria 3
+Clarinete 1
+Flauta Doce 2
+19:30h
+Bateria 4
+Sax
+Trompete 2"""
+    else:
+        return  # Sexta, sábado e domingo não envia
+    
     enviar_mensagem(texto)
 
 def aula_18h():
-    enviar_mensagem("✅ Aula das 18h encerrada.")
+    dia = datetime.now().weekday()
+    if dia <= 3:  # Segunda a Quinta
+        enviar_mensagem("Aula das 18h encerrada.")
 
 def aula_1930():
-    enviar_mensagem("✅ Aula das 19:30 encerrada.")
+    dia = datetime.now().weekday()
+    if dia <= 3:  # Segunda a Quinta
+        enviar_mensagem("Aula das 19:30 encerrada.")
 
+# Agendamento
 schedule.every().day.at("07:00").do(mensagem_manha)
 schedule.every().day.at("18:20").do(aula_18h)
 schedule.every().day.at("20:50").do(aula_1930)
 
-print("✅ Bot rodando na nuvem!")
+print("✅ Bot rodando!")
 while True:
     schedule.run_pending()
     time.sleep(30)
