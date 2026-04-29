@@ -1,6 +1,7 @@
 import requests
 import schedule
 import time
+import json
 from datetime import datetime
 from http.server import HTTPServer, BaseHTTPRequestHandler
 import threading
@@ -16,14 +17,18 @@ def enviar_mensagem(texto):
     url = f"{API_URL}/message/sendText/{INSTANCE}"
     headers = {
         "apikey": API_KEY,
-        "Content-Type": "application/json"
+        "Content-Type": "application/json; charset=utf-8"
     }
     payload = {
         "number": GRUPO_ID,
         "text": texto
     }
     try:
-        response = requests.post(url, json=payload, headers=headers)
+        response = requests.post(
+            url,
+            data=json.dumps(payload, ensure_ascii=False).encode('utf-8'),
+            headers=headers
+        )
         print(f"[{datetime.now()}] Mensagem enviada: {response.status_code}")
     except Exception as e:
         print(f"Erro: {e}")
