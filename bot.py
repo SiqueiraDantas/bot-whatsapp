@@ -55,6 +55,7 @@ Flauta Doce 2
 Flauta Transversal
 Percussão
 Trombone"""
+
     elif dia == 1:  # Terça
         texto = """Bom dia!!!
 Que estejamos todos na paz!!!
@@ -73,6 +74,7 @@ Trompete 1
 Bateria 4
 Sax
 Trompete 2"""
+
     elif dia == 2:  # Quarta
         texto = """Bom dia!!!
 Que estejamos todos na paz!!!
@@ -92,6 +94,7 @@ Flauta Doce 2
 Flauta Transversal
 Percussão
 Trombone"""
+
     elif dia == 3:  # Quinta
         texto = """Bom dia!!!
 Que estejamos todos na paz!!!
@@ -102,7 +105,7 @@ Hoje teremos aula para as turmas de:
 
 Bateria 3
 Clarinete 1
-Flauta Doce 2
+Trompete 1
 
 
 19:30h
@@ -110,6 +113,7 @@ Flauta Doce 2
 Bateria 4
 Sax
 Trompete 2"""
+
     else:
         return
     
