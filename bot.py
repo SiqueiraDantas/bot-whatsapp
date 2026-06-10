@@ -154,7 +154,7 @@ threading.Thread(target=start_server, daemon=True).start()
 # Agendamento
 schedule.every().day.at("07:00").do(mensagem_manha)
 schedule.every().day.at("19:20").do(aula_18h)
-schedule.every().day.at("20:50").do(aula_1930)
+schedule.every().day.at("19:38").do(aula_1930)
 
 print("✅ Bot rodando!")
 while True:
